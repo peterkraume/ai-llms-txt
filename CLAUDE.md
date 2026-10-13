@@ -50,7 +50,7 @@ Run a specific test suite with Docker/Podman via `Build/Scripts/runTests.sh`:
 ### Request Flow
 
 1. TYPO3 routes a request for `llms.txt` or `*.md` to the appropriate typeNum (1699 or 1701)
-2. `LlmsTxtController` handles the request, delegates to `LlmsTxtGeneratorService` (caching disabled by default, controllable via `llmsTxtCacheLifetime`) or directly renders a single page as Markdown
+2. `LlmsTxtController` handles the request, delegates to `LlmsTxtGeneratorService` (caching disabled by default, controllable via `llmsTxtCacheLifetime`) or directly renders a single page as Markdown. Both page types are cached USER objects, so TYPO3's page cache stores their output: the controller applies `llmsTxtCacheLifetime` to the page cache (disables it at `0`, otherwise tags the entry `pages` with that lifetime) and disables it for error responses
 3. For `llms.txt`, `NavigationBuilder` fetches the page tree in batches (no N+1 queries), `ConfigurationService` reads site YAML settings, and `UrlGeneratorService` produces absolute URLs
 4. For Markdown pages, TYPO3's `ContentObjectRenderer` renders the page HTML, then `HtmlCleanerService` → `MarkdownConverterService` (via `league/html-to-markdown`) converts it
 
@@ -90,9 +90,10 @@ Dependency injection is configured in `Configuration/Services.yaml` using Symfon
 
 ### Testing Conventions
 
-- PHPUnit 10+/11+ with `#[Test]` attribute (not `test` method prefix)
+- PHPUnit 11.5 with `#[Test]` attribute (not `test` method prefix)
 - Unit tests: `Tests/Unit/` — no TYPO3 bootstrap needed
-- Functional tests: `Tests/Functional/` — use TYPO3 TestingFramework; test fixtures in `Build/Scripts/testdata.sql`
+- Functional tests: `Tests/Functional/` — use TYPO3 TestingFramework; fixtures are CSV files in `Tests/Functional/Fixtures/`. `Tests/Functional/Frontend/` runs real frontend sub-requests, the only level where TypoScript registration, page caching and HTTP status codes are observable
+- `Build/Scripts/composer-for-core-version.sh` (via `runTests.sh -s composerUpdate -t 13|14`) switches the installed TYPO3 version and restores `composer.json` afterwards
 - All classes use `declare(strict_types=1)` and fully typed signatures
 
 ## TYPO3 Compatibility
@@ -100,4 +101,4 @@ Dependency injection is configured in `Configuration/Services.yaml` using Symfon
 | TYPO3 | PHP |
 |-------|-----|
 | 13.4  | 8.2, 8.3, 8.4 |
-| 14.1  | 8.2, 8.3, 8.4 |
+| 14.3  | 8.2, 8.3, 8.4 |
