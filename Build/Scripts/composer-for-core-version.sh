@@ -3,6 +3,11 @@
 # @todo This script is crap. It must fall and properly implemented in Build/Scripts/runTests.sh along with
 #       adding two ddev core instances decoupled from the root composer.json.
 
+# Abort on the first failing command. Without this a dependency resolution failure
+# went unnoticed: the script still exited 0, and CI only failed later on a missing
+# .Build/bin binary - which hid that the TYPO3 v13 install had never worked.
+set -euo pipefail
+
 composer_cleanup() {
     echo -e "💥 Cleanup folders"
     rm -Rf \
@@ -16,49 +21,33 @@ composer_cleanup() {
         composer.lock
 }
 
-composer_update() {
-    echo -e "🔥 Update to selected dependencies"
-    php -dxdebug.mode=off $(which composer) install
+# Install the dependency set for one TYPO3 major by temporarily requiring typo3/minimal.
+# composer.json is restored afterwards - also if the install fails - so switching the
+# core version never leaves the working tree modified.
+composer_install_for_core() {
+    local constraint="$1"
 
-    echo -e "🌊 Restore composer.json"
-    git restore composer.json
+    cp composer.json composer.json.orig
+    trap 'mv composer.json.orig composer.json' EXIT
+
+    echo -e "💪 Enforce TYPO3 ${constraint}"
+    php -dxdebug.mode=off "$(which composer)" require --no-update \
+        "typo3/minimal":"${constraint}"
+    echo -e "🔥 Update to selected dependencies"
+    php -dxdebug.mode=off "$(which composer)" install
 }
 
-update_v13() {
-    echo -e "💪 Enforce TYPO3 v13"
-    php -dxdebug.mode=off $(which composer) require --dev --no-update \
-        "phpunit/phpunit":"^10.5"
-    php -dxdebug.mode=off $(which composer) require --no-update \
-        "typo3/minimal":"^13.4"
-    echo -e "🔥 Update to selected dependencies"
-    php -dxdebug.mode=off $(which composer) install
-    php -dxdebug.mode=off $(which composer) remove --no-update \
-        "typo3/minimal"
-}
-
-update_v14() {
-    echo -e "💪 Enforce TYPO3 v14"
-    php -dxdebug.mode=off $(which composer) require --dev --no-update \
-        "phpunit/phpunit":"^11.5"
-    php -dxdebug.mode=off $(which composer) require --no-update \
-        "typo3/minimal":"^14.0"
-    echo -e "🔥 Update to selected dependencies"
-    php -dxdebug.mode=off $(which composer) install
-    php -dxdebug.mode=off $(which composer) remove --no-update \
-        "typo3/minimal"
-}
-
-case "$1" in
+case "${1:-}" in
 13)
     composer_cleanup
-    update_v13
+    composer_install_for_core "^13.4"
     ;;
 14)
     composer_cleanup
-    update_v14
+    composer_install_for_core "^14.0"
     ;;
 *)
     echo -e "🌀 Usage: composer-for-core-version.sh (13|14)" >&2
-    exit 0
+    exit 1
     ;;
 esac

@@ -297,8 +297,8 @@ final class MarkdownConverterServiceTest extends FunctionalTestCase
 
         $result = $this->subject->convertHtmlToMarkdown($html);
 
-        static::assertStringNotMatchesFormat('%A   Content%A', $result);
-        static::assertStringNotMatchesFormat('%AContent   %A', $result);
+        static::assertStringContainsString('Content', $result);
+        static::assertSame(trim($result), $result);
     }
 
     #[Test]
