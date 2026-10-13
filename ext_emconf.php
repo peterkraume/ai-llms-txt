@@ -2,8 +2,8 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'LLMS TXT Generator',
-    'description' => 'TYPO3 extension for generating llms.txt links according to llmstxt.org specification to control Large Language Model crawling policies.',
-    'category' => 'be',
+    'description' => 'Generates an llms.txt file according to the llmstxt.org specification and serves pages as Markdown, giving Large Language Models a structured, machine-readable view of your site.',
+    'category' => 'fe',
     'author' => 'web-vision GmbH',
     'author_email' => 'hello@web-vision.de',
     'state' => 'beta',
@@ -14,6 +14,8 @@ $EM_CONF[$_EXTKEY] = [
             'backend' => '13.4.0-14.3.99',
             'extbase' => '13.4.0-14.3.99',
             'fluid' => '13.4.0-14.3.99',
+            'frontend' => '13.4.0-14.3.99',
+            'seo' => '13.4.0-14.3.99',
         ],
         'conflicts' => [],
         'suggests' => [],
