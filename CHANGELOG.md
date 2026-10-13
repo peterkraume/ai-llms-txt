@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-10-13
+
 ### Added
 - Site setting `llmsTxtExcludeDoktypes` to leave additional page types out of llms.txt;
   subpages of an excluded page move up instead of being dropped (#1)
@@ -94,7 +96,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive documentation following TYPO3 standards
 - Support for TYPO3 v12, v13, and v14 LTS
 
-[Unreleased]: https://github.com/web-vision/ai-llms-txt/compare/0.2.1...HEAD
+[Unreleased]: https://github.com/web-vision/ai-llms-txt/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/web-vision/ai-llms-txt/compare/0.2.1...0.3.0
 [0.2.1]: https://github.com/web-vision/ai-llms-txt/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/web-vision/ai-llms-txt/compare/0.1.9...0.2.0
 [0.1.9]: https://github.com/web-vision/ai-llms-txt/releases/tag/0.1.9

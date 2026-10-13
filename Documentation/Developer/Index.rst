@@ -59,7 +59,8 @@ Public API and backward compatibility
 
 The extension follows `Semantic Versioning <https://semver.org/>`__. The
 following are covered by it and change incompatibly only in a new major
-version:
+version - or, while the version is below 1.0, only in a new minor version
+(for example 0.3 to 0.4, never 0.3.0 to 0.3.1):
 
 *   the site configuration settings (:ref:`configuration-site`),
 *   the page types 1699 and 1701 and the bundled route enhancer,

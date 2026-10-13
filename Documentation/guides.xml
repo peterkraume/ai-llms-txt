@@ -15,8 +15,8 @@
                typo3-core-preferred="stable"
     />
     <project title="LLMS TXT Generator"
-             release="main (development)"
-             version="main (development)"
+             release="0.3.0"
+             version="0.3"
              copyright="since 2025 by web-vision GmbH &amp; Contributors"
     />
 </guides>

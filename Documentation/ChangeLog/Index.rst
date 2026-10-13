@@ -9,10 +9,10 @@ ChangeLog
 The complete history is kept in
 `CHANGELOG.md <https://github.com/web-vision/ai-llms-txt/blob/main/CHANGELOG.md>`__.
 
-..  _changelog-unreleased:
+..  _changelog-0-3-0:
 
-Unreleased
-==========
+0.3.0 - 2026-10-13
+==================
 
 ..  important::
 
