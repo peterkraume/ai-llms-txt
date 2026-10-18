@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- The Markdown version of a page had two main headings when its content starts with an
+  `<h1>`, e.g. from a header content element. The page title is now left out in that case,
+  and the page description follows the heading of the content
+
 ## [0.3.0] - 2026-10-13
 
 ### Added
