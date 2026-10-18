@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Top-level pages in llms.txt were listed with `+` instead of `-` as list marker, the marker
+  used by the llmstxt.org specification and expected by its reference parser
+
 ## [0.3.0] - 2026-10-13
 
 ### Added
