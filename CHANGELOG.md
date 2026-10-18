@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- The Markdown version of a page lost all content following an `<aside>` or `<footer>`
+  that contains a `<div>`: layout wrapper divs are now unwrapped as a whole instead of
+  stripping every closing `</div>`
+
 ## [0.3.0] - 2026-10-13
 
 ### Added
