@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- The Markdown (`.md`) version of a page is served as `Content-Type: text/markdown` instead
+  of `text/plain`
+
 ## [0.3.0] - 2026-10-13
 
 ### Added
