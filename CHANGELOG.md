@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The Markdown version of a page had two main headings when its content starts with an
   `<h1>`, e.g. from a header content element. The page title is now left out in that case,
   and the page description follows the heading of the content
+- Top-level pages in llms.txt were listed with `+` instead of `-` as list marker, the marker
+  used by the llmstxt.org specification and expected by its reference parser
+- The Markdown version of a page lost all content following an `<aside>` or `<footer>`
+  that contains a `<div>`: layout wrapper divs are now unwrapped as a whole instead of
+  stripping every closing `</div>`
+### Changed
+- The Markdown (`.md`) version of a page is served as `Content-Type: text/markdown` instead
+  of `text/plain`
 
 ## [0.3.0] - 2026-10-13
 
